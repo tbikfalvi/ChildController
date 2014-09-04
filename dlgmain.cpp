@@ -53,8 +53,8 @@ void dlgMain::_setMenu()
     trayIconMenu->addSeparator();
 
     trayIconMenu->addAction( actionLogoff );
-    trayIconMenu->addAction( actionShutdown );
-    trayIconMenu->addAction( actionReboot );
+//    trayIconMenu->addAction( actionShutdown );
+//    trayIconMenu->addAction( actionReboot );
 
     trayIconMenu->addSeparator();
 
@@ -70,15 +70,15 @@ void dlgMain::slotSettings()
 
 void dlgMain::slotLogoff()
 {
-    ExitWindowsEx( EWX_LOGOFF, 0 );
+    ExitWindowsEx( EWX_LOGOFF, 1 );
 }
 
 void dlgMain::slotShutdown()
 {
-    ExitWindowsEx( EWX_SHUTDOWN, 0 );
+    ExitWindowsEx( EWX_SHUTDOWN, 1 );
 }
 
 void dlgMain::slotReboot()
 {
-    ExitWindowsEx( EWX_REBOOT, 0 );
+    ExitWindowsEx( EWX_REBOOT, 1 );
 }
