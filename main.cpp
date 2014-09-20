@@ -1,13 +1,30 @@
 #include <QApplication>
 #include <QtGui>
+#include <QTranslator>
 
 #include "dlgmain.h"
+
+QTranslator     *poTransApp;
+QTranslator     *poTransQT;
+QApplication    *apMainApp;
 
 int main(int argc, char *argv[])
 {
     Q_INIT_RESOURCE(childcontroller);
 
-    QApplication app(argc, argv);
+    apMainApp = new QApplication(argc, argv);
+
+    QSettings   obPref( "c:/ProgramData/ChildController/childcontroller.inf", QSettings::IniFormat );
+    QString     qsLang = obPref.value( "Lang", "en" ).toString();
+
+    poTransApp = new QTranslator();
+    poTransQT = new QTranslator();
+
+    poTransApp->load( QString("%1\\childcontroller_%2.qm").arg(QDir::currentPath()).arg(qsLang) );
+    poTransQT->load( QString("%1\\qt_%2.qm").arg(QDir::currentPath()).arg(qsLang) );
+
+    apMainApp->installTranslator( poTransApp );
+    apMainApp->installTranslator( poTransQT );
 
     if (!QSystemTrayIcon::isSystemTrayAvailable())
     {
@@ -20,7 +37,26 @@ int main(int argc, char *argv[])
 
     dlgMain obDlgMain;
 
-//    obDlgMain.show();
+    if( argc > 1 )
+    {
+        for( int i=1; i<argc; i++ )
+        {
+            QStringList qslParam = QString( argv[i] ).split(':');
 
-    return app.exec();
+            if( qslParam.at(0).compare( "-t" ) == 0 && atoi( qslParam.at(1).toStdString().c_str() ) > 0 )
+            {
+                obDlgMain.setTimerLength( atoi( qslParam.at(1).toStdString().c_str() ) );
+            }
+            if( qslParam.at(0).compare( "-e" ) == 0 && atoi( qslParam.at(1).toStdString().c_str() ) > 0 )
+            {
+                obDlgMain.setExtendedLength( atoi( qslParam.at(1).toStdString().c_str() ) );
+            }
+            if( qslParam.at(0).compare( "-s" ) == 0 && atoi( qslParam.at(1).toStdString().c_str() ) > 0 )
+            {
+                obDlgMain.setTimerStart( atoi( qslParam.at(1).toStdString().c_str() ) );
+            }
+        }
+    }
+
+    return apMainApp->exec();
 }

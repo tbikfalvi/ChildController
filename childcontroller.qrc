@@ -6,5 +6,10 @@
         <file>shutdown.png</file>
         <file>start.png</file>
         <file>exit.png</file>
+        <file>ok.png</file>
+        <file>reset.png</file>
+        <file>stop.png</file>
+        <file>cancel.png</file>
+        <file>show.png</file>
     </qresource>
 </RCC>

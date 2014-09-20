@@ -10,9 +10,12 @@ DESTDIR      = ..
 TRANSLATIONS = childcontroller_hu.ts
 TARGET       = ChildController
 
-HEADERS     += dlgmain.h
+HEADERS     += dlgmain.h \
+    dlgtimer.h
 
 SOURCES     += main.cpp\
-               dlgmain.cpp
+               dlgmain.cpp \
+    dlgtimer.cpp
 
-FORMS       += dlgmain.ui
+FORMS       += dlgmain.ui \
+    dlgtimer.ui
