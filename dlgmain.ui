@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>242</width>
-    <height>377</height>
+    <width>243</width>
+    <height>423</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,14 +55,14 @@ background-color: rgb(85, 0, 255);</string>
       <widget class="QPushButton" name="pbHide">
        <property name="minimumSize">
         <size>
-         <width>15</width>
-         <height>15</height>
+         <width>20</width>
+         <height>20</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>15</width>
-         <height>15</height>
+         <width>20</width>
+         <height>20</height>
         </size>
        </property>
        <property name="text">
@@ -70,12 +70,41 @@ background-color: rgb(85, 0, 255);</string>
        </property>
        <property name="icon">
         <iconset resource="childcontroller.qrc">
-         <normaloff>:/shutdown.png</normaloff>:/shutdown.png</iconset>
+         <normaloff>:/minimize.png</normaloff>:/minimize.png</iconset>
        </property>
        <property name="iconSize">
         <size>
-         <width>9</width>
-         <height>9</height>
+         <width>15</width>
+         <height>15</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbExit">
+       <property name="minimumSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="childcontroller.qrc">
+         <normaloff>:/exit.png</normaloff>:/exit.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>15</width>
+         <height>15</height>
         </size>
        </property>
       </widget>
@@ -130,6 +159,29 @@ background-color: rgb(85, 0, 255);</string>
             </size>
            </property>
           </spacer>
+         </item>
+         <item row="0" column="2">
+          <widget class="QPushButton" name="pbCancel">
+           <property name="minimumSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="childcontroller.qrc">
+             <normaloff>:/cancel.png</normaloff>:/cancel.png</iconset>
+           </property>
+          </widget>
          </item>
          <item row="0" column="1">
           <widget class="QPushButton" name="pbLogin">
@@ -191,26 +243,13 @@ background-color: rgb(85, 0, 255);</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="2">
-          <widget class="QPushButton" name="pbCancel">
-           <property name="minimumSize">
-            <size>
-             <width>25</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>25</width>
-             <height>25</height>
-            </size>
+         <item row="2" column="0">
+          <widget class="QCheckBox" name="chkRequirePassword">
+           <property name="toolTip">
+            <string>User must re-enter the administrator password every time ...</string>
            </property>
            <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="childcontroller.qrc">
-             <normaloff>:/cancel.png</normaloff>:/cancel.png</iconset>
+            <string>Require password</string>
            </property>
           </widget>
          </item>

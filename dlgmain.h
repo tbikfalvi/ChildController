@@ -54,6 +54,8 @@ private slots:
     void on_pbCancel_clicked();
     void on_actionShow_triggered();
 
+    void on_pbExit_clicked();
+
 private:
     dlgTimer            *poDlgTimer;
     Ui::dlgMain         *ui;

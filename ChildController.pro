@@ -11,11 +11,11 @@ TRANSLATIONS = childcontroller_hu.ts
 TARGET       = ChildController
 
 HEADERS     += dlgmain.h \
-    dlgtimer.h
+               dlgtimer.h
 
 SOURCES     += main.cpp\
                dlgmain.cpp \
-    dlgtimer.cpp
+               dlgtimer.cpp
 
 FORMS       += dlgmain.ui \
-    dlgtimer.ui
+               dlgtimer.ui

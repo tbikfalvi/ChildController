@@ -281,6 +281,8 @@ void dlgMain::on_Timer_finished()
 
 void dlgMain::on_pbHide_clicked()
 {
+    m_bAdminIdentified = false;
+    _setControlsEnabled( m_bAdminIdentified );
     hide();
 }
 
@@ -307,7 +309,12 @@ void dlgMain::_setControlsEnabled(bool p_bEnabled)
     ui->ledPassword2->setEnabled( false );
     ui->pbCancel->setEnabled( false );
     ui->pbCancel->setVisible( false );
+
+    if( !ui->chkRequirePassword->isChecked() && p_bEnabled == false )
+        return;
+
     ui->pbModifyPassword->setEnabled( p_bEnabled );
+    ui->chkRequirePassword->setEnabled( p_bEnabled );
     ui->ledTimerLength->setEnabled( p_bEnabled );
     ui->ledExtendedLength->setEnabled( p_bEnabled );
     ui->pbStart->setEnabled( p_bEnabled );
@@ -323,6 +330,8 @@ void dlgMain::_setControlsEnabled(bool p_bEnabled)
     actionReset->setEnabled( p_bEnabled );
     actionLogoff->setEnabled( p_bEnabled );
     actionExit->setEnabled( p_bEnabled );
+
+    ui->pbExit->setEnabled( p_bEnabled );
 }
 
 void dlgMain::on_pbCancel_clicked()
@@ -335,4 +344,9 @@ void dlgMain::on_pbCancel_clicked()
 void dlgMain::on_actionShow_triggered()
 {
     poDlgTimer->show();
+}
+
+void dlgMain::on_pbExit_clicked()
+{
+    qApp->quit();
 }
