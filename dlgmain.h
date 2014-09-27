@@ -6,6 +6,11 @@
 #include <QMenu>
 #include <QAction>
 #include <QTranslator>
+#include <QFrame>
+#include <QLabel>
+#include <QSpacerItem>
+#include <QHBoxLayout>
+#include <QPushButton>
 
 extern QTranslator     *poTransApp;
 extern QTranslator     *poTransQT;
@@ -14,6 +19,25 @@ extern QApplication    *apMainApp;
 #include "dlgtimer.h"
 
 namespace Ui { class dlgMain; }
+
+class cPanelUser : public QFrame
+{
+    Q_OBJECT
+
+public:
+
+    cPanelUser( QWidget *p_poParent = 0, QString p_qsUser = "" );
+
+    QLabel          *lblUserName;
+    QSpacerItem     *horizontalSpacer1;
+    QLabel          *lblRole;
+    QPushButton     *pbEdit;
+    QHBoxLayout     *horizontalLayout;
+
+private slots:
+    void             slotButtonClicked();
+
+};
 
 class dlgMain : public QDialog
 {
@@ -76,9 +100,12 @@ private:
     int                  m_nMouseX;
     int                  m_nMouseY;
 
+    QVector<cPanelUser*> qvPanelUser;
+
     void                _setActions();
     void                _setMenu();
     void                _setControlsEnabled( bool p_bEnabled );
+    void                _registerUser( QString p_qsUser );
 };
 
 #endif // DLGMAIN_H

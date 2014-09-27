@@ -4,10 +4,16 @@
 #include <QSettings>
 #include <QCryptographicHash>
 #include <QDir>
+#include <QProcessEnvironment>
 
 #include "dlgmain.h"
 #include "ui_dlgmain.h"
 #include "dlgtimer.h"
+
+cPanelUser::cPanelUser(QWidget *p_poParent, QString p_qsUser)
+{
+
+}
 
 dlgMain::dlgMain(QWidget *parent) : QDialog(parent), ui(new Ui::dlgMain)
 {
@@ -63,6 +69,15 @@ dlgMain::dlgMain(QWidget *parent) : QDialog(parent), ui(new Ui::dlgMain)
         ui->ledPassword2->setEnabled( true );
         show();
     }
+
+    QProcessEnvironment qpeInfo = QProcessEnvironment::systemEnvironment();
+
+    QString qsCurrentUser = qpeInfo.value( "USERNAME", "" );
+
+//    QMessageBox::information( this, "", qsCurrentUser );
+
+    ui->lblTitle->setText( tr( "Child Controller - %1" ).arg( qsCurrentUser ) );
+    _registerUser( qsCurrentUser );
 }
 
 dlgMain::~dlgMain()
@@ -349,4 +364,23 @@ void dlgMain::on_actionShow_triggered()
 void dlgMain::on_pbExit_clicked()
 {
     qApp->quit();
+}
+
+void dlgMain::_registerUser(QString p_qsUser)
+{
+    QSettings   obPref( "c:/ProgramData/ChildController/childcontroller.inf", QSettings::IniFormat );
+
+    QString     qsUsers     = obPref.value( "Users", "" ).toString();
+    QStringList qslUsers    = QStringList();
+
+    if( qsUsers.length() > 0 )
+    {
+        qslUsers << qsUsers.split(',');
+    }
+
+    if( !qslUsers.contains( p_qsUser ) )
+    {
+        qslUsers << p_qsUser;
+        obPref.setValue( "Users", qslUsers.join(",") );
+    }
 }
