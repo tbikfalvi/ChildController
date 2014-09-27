@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>619</width>
+    <width>510</width>
     <height>536</height>
    </rect>
   </property>
@@ -479,7 +479,7 @@ background-color: rgb(85, 0, 255);</string>
           <property name="title">
            <string> User restrictions </string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
+          <layout class="QVBoxLayout" name="vlUsers">
            <item>
             <spacer name="spacerUsers">
              <property name="orientation">

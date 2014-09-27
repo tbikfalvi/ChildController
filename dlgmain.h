@@ -106,6 +106,7 @@ private:
     void                _setMenu();
     void                _setControlsEnabled( bool p_bEnabled );
     void                _registerUser( QString p_qsUser );
+    void                _refreshUsers();
 };
 
 #endif // DLGMAIN_H

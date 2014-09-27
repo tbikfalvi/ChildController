@@ -1,3 +1,4 @@
+//    QMessageBox::information( this, "", "" );
 
 #include <windows.h>
 #include <QMessageBox>
@@ -12,7 +13,59 @@
 
 cPanelUser::cPanelUser(QWidget *p_poParent, QString p_qsUser)
 {
+    QSettings   obPref( "c:/ProgramData/ChildController/childcontroller.inf", QSettings::IniFormat );
 
+    QString     qsRole = obPref.value( QString( "%1/Role" ).arg( p_qsUser ), "User" ).toString();
+
+    horizontalLayout = new QHBoxLayout( this );
+    horizontalLayout->setObjectName( QString::fromUtf8( "horizontalLayout" ) );
+    horizontalLayout->setSpacing( 0 );
+    horizontalLayout->setMargin( 1 );
+    setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Fixed );
+
+    lblUserName = new QLabel( this );
+    lblUserName->setObjectName( QString::fromUtf8( "lblUserName" ) );
+    lblUserName->setText( QString(" %1 ").arg( p_qsUser ) );
+    horizontalLayout->addWidget( lblUserName );
+
+    horizontalSpacer1 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+    horizontalLayout->addItem( horizontalSpacer1 );
+
+    lblRole = new QLabel( this );
+    lblRole->setObjectName( QString::fromUtf8( "lblRole" ) );
+    lblRole->setMinimumWidth( 30 );
+    lblRole->setMinimumHeight( 30 );
+    lblRole->setMaximumWidth( 30 );
+    lblRole->setMaximumHeight( 30 );
+    lblRole->setScaledContents( true );
+    if( qsRole.compare("Admin") == 0 )
+    {
+        lblRole->setPixmap( QPixmap( ":/admin.png" ) );
+    }
+    else
+    {
+        lblRole->setPixmap( QPixmap( ":/user.png" ) );
+    }
+    horizontalLayout->addWidget( lblRole );
+
+    pbEdit = new QPushButton( this );
+    pbEdit->setObjectName( QString::fromUtf8( "pbEdit" ) );
+    pbEdit->setMinimumWidth( 30 );
+    pbEdit->setMinimumHeight( 30 );
+    pbEdit->setMaximumWidth( 30 );
+    pbEdit->setMaximumHeight( 30 );
+    pbEdit->setText( "" );
+    pbEdit->setToolTip( tr("Edit user parameters.") );
+    pbEdit->setIconSize( QSize(20,20) );
+    pbEdit->setIcon( QIcon(":/settings.png") );
+    pbEdit->setAutoDefault( false );
+    horizontalLayout->addWidget( pbEdit );
+    connect( pbEdit, SIGNAL(clicked()), this, SLOT(slotButtonClicked()) );
+}
+
+void cPanelUser::slotButtonClicked()
+{
+    QMessageBox::information( this, "", "click" );
 }
 
 dlgMain::dlgMain(QWidget *parent) : QDialog(parent), ui(new Ui::dlgMain)
@@ -74,10 +127,10 @@ dlgMain::dlgMain(QWidget *parent) : QDialog(parent), ui(new Ui::dlgMain)
 
     QString qsCurrentUser = qpeInfo.value( "USERNAME", "" );
 
-//    QMessageBox::information( this, "", qsCurrentUser );
-
     ui->lblTitle->setText( tr( "Child Controller - %1" ).arg( qsCurrentUser ) );
     _registerUser( qsCurrentUser );
+
+    _refreshUsers();
 }
 
 dlgMain::~dlgMain()
@@ -384,3 +437,31 @@ void dlgMain::_registerUser(QString p_qsUser)
         obPref.setValue( "Users", qslUsers.join(",") );
     }
 }
+
+void dlgMain::_refreshUsers()
+{
+    for( int i=0;i<qvPanelUser.count(); i++ )
+    {
+        ui->vlUsers->removeWidget( qvPanelUser.at(i) );
+        delete qvPanelUser.at(i);
+    }
+    qvPanelUser.clear();
+
+    QSettings   obPref( "c:/ProgramData/ChildController/childcontroller.inf", QSettings::IniFormat );
+
+    QString     qsUsers     = obPref.value( "Users", "" ).toString();
+    QStringList qslUsers    = QStringList();
+
+    if( qsUsers.length() > 0 )
+    {
+        qslUsers << qsUsers.split(',');
+    }
+
+    for( int i=0; i<qslUsers.count(); i++ )
+    {
+        cPanelUser  *pPanelUser = new cPanelUser( this, qslUsers.at(i) );
+        ui->vlUsers->insertWidget( qvPanelUser.count(), pPanelUser );
+        qvPanelUser.append( pPanelUser );
+    }
+}
+

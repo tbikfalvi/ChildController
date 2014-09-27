@@ -12,5 +12,7 @@
         <file>cancel.png</file>
         <file>show.png</file>
         <file>minimize.png</file>
+        <file>user.png</file>
+        <file>admin.png</file>
     </qresource>
 </RCC>
